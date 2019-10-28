@@ -24,7 +24,7 @@ It is widely accepted that the top sides of convolutional neural networks (CNNs)
    Here, `$ROOT_DIR/saliency_data/*.jpg` is the path of training images, and `$ROOT_DIR/saliency_data/*.png` is the path of the saliency ground truth. Maybe you need to change the path to your own data.
 
 
-4. Download the pretrained vgg16 model from [here](http://mftp.mmcheng.net/liuyun/rcf/model/5stage-vgg.caffemodel).
+4. Download the pretrained vgg16 model [here](http://mftp.mmcheng.net/liuyun/rcf/model/5stage-vgg.caffemodel).
 
 5. Start training process by running the following commands:
 

@@ -26,7 +26,7 @@ It is widely accepted that the top sides of convolutional neural networks (CNNs)
 
 4. Download the pretrained vgg16 model [here](http://mftp.mmcheng.net/liuyun/rcf/model/5stage-vgg.caffemodel).
 
-5. Start training process by running the following commands:
+5. Start the training process by running the following commands:
 
     ```Shell
     cd $ROOT_DIR/examples/saliency/
@@ -42,16 +42,16 @@ It is widely accepted that the top sides of convolutional neural networks (CNNs)
     ECSSD/0097.jpg
     ECSSD/0747.jpg
     ```
-   Here, $ROOT_DIR/saliency_data/*.jpg is the path of test images.
+   Here, `$ROOT_DIR/saliency_data/*.jpg` is the path of test images.
 
-2. Change the paths for the data and model in `test_sal.py`, and start test process by running the following commands:
+2. Change the paths for the data and model in `test_sal.py`, and start the test process by running the following commands:
 
     ```Shell
     cd $ROOT_DIR/examples/saliency/
     python test_sal.py
     ```
     
-3. Follow [this website](https://github.com/Andrew-Qibin/dss_crf) to install crf package, and perform CRF by running the following commands:
+3. Follow [this website](https://github.com/Andrew-Qibin/dss_crf) to install CRF package, and perform CRF by running the following commands:
     
     ```Shell
     cd $ROOT_DIR/pydensecrf/examples/

@@ -1,0 +1,531 @@
+name: "Encoder-Decoder"
+
+input: "data"
+input_shape {
+  dim: 1
+  dim: 3
+  dim: 400
+  dim: 400
+}
+
+
+################################# Encoder #################################
+
+layer { name: "conv1_1" type: "Convolution" bottom: "data" top: "conv1_1"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 64 pad: 1 kernel_size: 3 } }
+layer { name: "relu1_1" type: "ReLU" bottom: "conv1_1" top: "conv1_1" }
+layer { name: "conv1_2" type: "Convolution" bottom: "conv1_1" top: "conv1_2"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 64 pad: 1 kernel_size: 3 } }
+layer { name: "relu1_2" type: "ReLU" bottom: "conv1_2" top: "conv1_2" }
+layer { name: "pool1" type: "Pooling" bottom: "conv1_2" top: "pool1"
+  pooling_param { pool: MAX kernel_size: 2 stride: 2 } }
+
+layer { name: "conv2_1" type: "Convolution" bottom: "pool1" top: "conv2_1"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 128 pad: 1 kernel_size: 3 } }
+layer { name: "relu2_1" type: "ReLU" bottom: "conv2_1" top: "conv2_1" }
+layer { name: "conv2_2" type: "Convolution" bottom: "conv2_1" top: "conv2_2"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 128 pad: 1 kernel_size: 3 } }
+layer { name: "relu2_2" type: "ReLU" bottom: "conv2_2" top: "conv2_2" }
+layer { name: "pool2" type: "Pooling" bottom: "conv2_2" top: "pool2"
+  pooling_param { pool: MAX kernel_size: 2 stride: 2 } }
+
+layer { name: "conv3_1" type: "Convolution" bottom: "pool2" top: "conv3_1"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 256 pad: 1 kernel_size: 3 } }
+layer { name: "relu3_1" type: "ReLU" bottom: "conv3_1" top: "conv3_1" }
+layer { name: "conv3_2" type: "Convolution" bottom: "conv3_1" top: "conv3_2"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 256 pad: 1 kernel_size: 3 } }
+layer { name: "relu3_2" type: "ReLU" bottom: "conv3_2" top: "conv3_2" }
+layer { name: "conv3_3" type: "Convolution" bottom: "conv3_2" top: "conv3_3"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 256 pad: 1 kernel_size: 3 } }
+layer { name: "relu3_3" type: "ReLU" bottom: "conv3_3" top: "conv3_3" }
+layer { name: "pool3" type: "Pooling" bottom: "conv3_3" top: "pool3"
+  pooling_param { pool: MAX kernel_size: 2 stride: 2 } }
+
+layer { name: "conv4_1" type: "Convolution" bottom: "pool3" top: "conv4_1"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 512 pad: 1 kernel_size: 3 } }
+layer { name: "relu4_1" type: "ReLU" bottom: "conv4_1" top: "conv4_1" }
+layer { name: "conv4_2" type: "Convolution" bottom: "conv4_1" top: "conv4_2"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 512 pad: 1 kernel_size: 3 } }
+layer { name: "relu4_2" type: "ReLU" bottom: "conv4_2" top: "conv4_2" }
+layer { name: "conv4_3" type: "Convolution" bottom: "conv4_2" top: "conv4_3"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 512 pad: 1 kernel_size: 3 } }
+layer { name: "relu4_3" type: "ReLU" bottom: "conv4_3" top: "conv4_3" }
+layer { name: "pool4" type: "Pooling" bottom: "conv4_3" top: "pool4"
+  pooling_param { pool: MAX kernel_size: 2 stride: 2 } }
+
+layer { name: "conv5_1" type: "Convolution" bottom: "pool4" top: "conv5_1"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 512 pad: 1 kernel_size: 3 } }
+layer { name: "relu5_1" type: "ReLU" bottom: "conv5_1" top: "conv5_1" }
+layer { name: "conv5_2" type: "Convolution" bottom: "conv5_1" top: "conv5_2"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 512 pad: 1 kernel_size: 3 } }
+layer { name: "relu5_2" type: "ReLU" bottom: "conv5_2" top: "conv5_2" }
+layer { name: "conv5_3" type: "Convolution" bottom: "conv5_2" top: "conv5_3"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 512 pad: 1 kernel_size: 3 } }
+layer { name: "relu5_3" type: "ReLU" bottom: "conv5_3" top: "conv5_3" }
+layer { name: "pool5" type: "Pooling" bottom: "conv5_3" top: "pool5"
+  pooling_param { pool: MAX kernel_size: 2 stride: 2 } }
+
+layer { name: "pool6" type: "Pooling" bottom: "pool5" top: "pool6"
+  pooling_param { pool: MAX kernel_size: 3 stride: 1 pad: 1 } }
+
+################################# Decoder #################################
+
+### deconv6 ###
+### PROD
+layer { name: "pool6_down" type: "Convolution" bottom: "pool6" top: "pool6_down"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 512 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+#######
+layer { name: "pool6_v" type: "Convolution" bottom: "pool6" top: "pool6_v"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 512 pad: 1 kernel_size: 3
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "sigmoid6_v"  bottom: "pool6_v"  top: "pool6_v"  type: "Sigmoid"}
+layer { name: "prod6" type: "Eltwise" bottom: "pool6_v" bottom: "pool6_down"
+  top: "prod6" eltwise_param { operation: PROD } }
+### G
+layer { name: "pool6_side1" type: "Convolution" bottom: "pool6_down" top: "pool6_side1"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 512 pad: 3 kernel_size: 7
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "relu_pool6_side1" type: "ReLU" bottom: "pool6_side1" top: "pool6_side1" }
+layer { name: "pool6_side2" type: "Convolution" bottom: "pool6_side1" top: "pool6_side2"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 512 pad: 3 kernel_size: 7
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "relu_pool6_side2" type: "ReLU" bottom: "pool6_side2" top: "pool6_side2" }
+layer { name: "pool6_down_g" type: "Convolution" bottom: "pool6" top: "pool6_down_g"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 512 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "res_side6" bottom: "pool6_down_g" bottom: "pool6_side2" top: "res_side6" type: "Eltwise"}
+layer { name: "pool6_side3" type: "Convolution" bottom: "res_side6" top: "pool6_side3"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 1 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "upsample32" type: "Deconvolution" bottom: "pool6_side3" top: "pool6_side3-up"
+  param { lr_mult: 0 decay_mult: 1 } param { lr_mult: 0 decay_mult: 0 }
+  convolution_param { num_output: 1 kernel_size: 64 stride: 32
+    weight_filler { type: "bilinear" } } }
+layer { name: "crop6_g" type: "Crop" bottom: "pool6_side3-up" bottom: "data"
+  top: "upscore-dsn6" crop_param { axis: 2 offset: 16 } }
+layer { name: "sigmoid-dsn6" type: "Sigmoid" bottom: "upscore-dsn6" top: "sigmoid-dsn6" }
+
+### deconv5 ###
+### after PROD
+layer { name: "post_prod6" type: "Convolution" bottom: "prod6" top: "post_prod6"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 256 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "upsample2_5" type: "Deconvolution" bottom: "post_prod6" top: "reshape5"
+  param { lr_mult: 0 decay_mult: 1 } param { lr_mult: 0 decay_mult: 0 }
+  convolution_param { num_output: 256 group: 256 kernel_size: 4 stride: 2
+    weight_filler { type: "bilinear" } } }
+layer { name: "crop5" type: "Crop" bottom: "reshape5" bottom: "conv5_3"
+  top: "crop5" crop_param { axis: 2 offset: 1 } }
+### concat
+layer { name: "crop5_down" type: "Convolution" bottom: "crop5" top: "crop5_down"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 256 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "conv5_down" type: "Convolution" bottom: "conv5_3" top: "conv5_down"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 256 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "concat_deconv5" bottom: "crop5_down" bottom: "conv5_down" top: "concat_deconv5" type: "Concat" concat_param { concat_dim: 1 } }
+### res
+layer { name: "deconv5" type: "Convolution" bottom: "concat_deconv5" top: "deconv5"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 256 pad: 2 kernel_size: 5
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "derelu5" type: "ReLU" bottom: "deconv5" top: "deconv5" }
+layer { name: "deconv5_out" type: "Convolution" bottom: "deconv5" top: "deconv5_out"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 256 pad: 2 kernel_size: 5
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "derelu5_out" type: "ReLU" bottom: "deconv5_out" top: "deconv5_out" }
+layer { name: "concat_deconv5_down" type: "Convolution" bottom: "concat_deconv5" top: "concat_deconv5_down"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 256 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "res5" bottom: "deconv5_out" bottom: "concat_deconv5_down" top: "res5" type: "Eltwise"}
+layer { name: "post_res5" type: "Convolution" bottom: "res5" top: "post_res5"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 256 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+### PROD
+#######
+layer { name: "conv5_3_down" type: "Convolution" bottom: "conv5_3" top: "conv5_3_down"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 256 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "conv5_3_down_v" type: "Convolution" bottom: "conv5_3_down" top: "conv5_3_down_v"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 256 pad: 1 kernel_size: 3
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "sig_conv5_3_down_v"  bottom: "conv5_3_down_v"  top: "conv5_3_down_v"  type: "Sigmoid"}
+layer { name: "prod5" type: "Eltwise" bottom: "conv5_3_down_v" bottom: "post_res5"
+  top: "prod5" eltwise_param { operation: PROD } }
+### G
+layer { name: "conv5_side1" type: "Convolution" bottom: "post_res5" top: "conv5_side1"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 256 pad: 2 kernel_size: 5
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "relu_conv5_side1" type: "ReLU" bottom: "conv5_side1" top: "conv5_side1" }
+layer { name: "conv5_side2" type: "Convolution" bottom: "conv5_side1" top: "conv5_side2"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 256 pad: 2 kernel_size: 5
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "relu_conv5_side2" type: "ReLU" bottom: "conv5_side2" top: "conv5_side2" }
+layer { name: "res5_down_g" type: "Convolution" bottom: "post_res5" top: "res5_down_g"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 256 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "res_side5" bottom: "res5_down_g" bottom: "conv5_side2" top: "res_side5" type: "Eltwise"}
+layer { name: "conv5_side3" type: "Convolution" bottom: "res_side5" top: "conv5_side3"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 1 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "upsample16" type: "Deconvolution" bottom: "conv5_side3" top: "conv5_side3-up"
+  param { lr_mult: 0 decay_mult: 1 } param { lr_mult: 0 decay_mult: 0 }
+  convolution_param { num_output: 1 kernel_size: 32 stride: 16
+    weight_filler { type: "bilinear" } } }
+layer { name: "crop5_g" type: "Crop" bottom: "conv5_side3-up" bottom: "data"
+  top: "upscore-dsn5" crop_param { axis: 2 offset: 8 } }
+layer { name: "sigmoid-dsn5" type: "Sigmoid" bottom: "upscore-dsn5" top: "sigmoid-dsn5" }
+
+### deconv4 ###
+### after PROD
+layer { name: "post_deconv5" type: "Convolution" bottom: "prod5" top: "post_deconv5"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 256 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "upsample2_4" type: "Deconvolution" bottom: "post_deconv5" top: "reshape4"
+  param { lr_mult: 0 decay_mult: 1 } param { lr_mult: 0 decay_mult: 0 }
+  convolution_param { num_output: 256 group: 256 kernel_size: 4 stride: 2
+    weight_filler { type: "bilinear" } } }
+layer { name: "crop4" type: "Crop" bottom: "reshape4" bottom: "conv4_3"
+  top: "crop4" crop_param { axis: 2 offset: 1 } }
+### concat
+layer { name: "crop4_down" type: "Convolution" bottom: "crop4" top: "crop4_down"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 256 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "conv4_down" type: "Convolution" bottom: "conv4_3" top: "conv4_down"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 256 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "concat_deconv4" bottom: "crop4_down" bottom: "conv4_down" top: "concat_deconv4" type: "Concat" concat_param { concat_dim: 1 } }
+### res
+layer { name: "deconv4" type: "Convolution" bottom: "concat_deconv4" top: "deconv4"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 256 pad: 2 kernel_size: 5
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "derelu4" type: "ReLU" bottom: "deconv4" top: "deconv4" }
+layer { name: "deconv4_out" type: "Convolution" bottom: "deconv4" top: "deconv4_out"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 256 pad: 2 kernel_size: 5
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "derelu4_out" type: "ReLU" bottom: "deconv4_out" top: "deconv4_out" }
+layer { name: "concat_deconv4_down" type: "Convolution" bottom: "concat_deconv4" top: "concat_deconv4_down"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 256 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "res4" bottom: "concat_deconv4_down" bottom: "deconv4_out" top: "res4" type: "Eltwise"}
+layer { name: "post_res4" type: "Convolution" bottom: "res4" top: "post_res4"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 256 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+### PROD
+#######
+layer { name: "conv4_3_down" type: "Convolution" bottom: "conv4_3" top: "conv4_3_down"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 256 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "conv4_3_down_v" type: "Convolution" bottom: "conv4_3_down" top: "conv4_3_down_v"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 256 pad: 1 kernel_size: 3
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "sig_conv4_3_down_v"  bottom: "conv4_3_down_v"  top: "conv4_3_down_v"  type: "Sigmoid"}
+layer { name: "prod4" type: "Eltwise" bottom: "conv4_3_down_v" bottom: "post_res4"
+  top: "prod4" eltwise_param { operation: PROD } }
+### G
+layer { name: "conv4_side1" type: "Convolution" bottom: "post_res4" top: "conv4_side1"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 256 pad: 2 kernel_size: 5
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "relu_conv4_side1" type: "ReLU" bottom: "conv4_side1" top: "conv4_side1" }
+layer { name: "conv4_side2" type: "Convolution" bottom: "conv4_side1" top: "conv4_side2"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 256 pad: 2 kernel_size: 5
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "relu_conv4_side2" type: "ReLU" bottom: "conv4_side2" top: "conv4_side2" }
+layer { name: "res4_down_g" type: "Convolution" bottom: "post_res4" top: "res4_down_g"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 256 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "res_side4" bottom: "res4_down_g" bottom: "conv4_side2" top: "res_side4" type: "Eltwise"}
+layer { name: "conv4_side3" type: "Convolution" bottom: "res_side4" top: "conv4_side3"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 1 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "upsample8" type: "Deconvolution" bottom: "conv4_side3" top: "conv4_side3-up"
+  param { lr_mult: 0 decay_mult: 1 } param { lr_mult: 0 decay_mult: 0 }
+  convolution_param { num_output: 1 kernel_size: 16 stride: 8
+    weight_filler { type: "bilinear" } } }
+layer { name: "crop4_g" type: "Crop" bottom: "conv4_side3-up" bottom: "data"
+  top: "upscore-dsn4" crop_param { axis: 2 offset: 4 } }
+layer { name: "sigmoid-dsn4" type: "Sigmoid" bottom: "upscore-dsn4" top: "sigmoid-dsn4" }
+
+### deconv3 ###
+### after PROD
+layer { name: "post_deconv4" type: "Convolution" bottom: "prod4" top: "post_deconv4"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 128 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "upsample2_3" type: "Deconvolution" bottom: "post_deconv4" top: "reshape3"
+  param { lr_mult: 0 decay_mult: 1 } param { lr_mult: 0 decay_mult: 0 }
+  convolution_param { num_output: 128 group: 128 kernel_size: 4 stride: 2
+    weight_filler { type: "bilinear" } } }
+layer { name: "crop3" type: "Crop" bottom: "reshape3" bottom: "conv3_3"
+  top: "crop3" crop_param { axis: 2 offset: 1 } }
+### concat
+layer { name: "crop3_down" type: "Convolution" bottom: "crop3" top: "crop3_down"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 128 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "conv3_down" type: "Convolution" bottom: "conv3_3" top: "conv3_down"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 128 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "concat_deconv3" bottom: "crop3_down" bottom: "conv3_down" top: "concat_deconv3" type: "Concat" concat_param { concat_dim: 1 } }
+### res
+layer { name: "deconv3" type: "Convolution" bottom: "concat_deconv3" top: "deconv3"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 128 pad: 1 kernel_size: 3
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "derelu3" type: "ReLU" bottom: "deconv3" top: "deconv3" }
+layer { name: "deconv3_out" type: "Convolution" bottom: "deconv3" top: "deconv3_out"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 128 pad: 1 kernel_size: 3
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "derelu3_out" type: "ReLU" bottom: "deconv3_out" top: "deconv3_out" }
+layer { name: "concat_deconv3_down" type: "Convolution" bottom: "concat_deconv3" top: "concat_deconv3_down"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 128 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { bottom: "concat_deconv3_down" bottom: "deconv3_out" top: "res3" name: "res3" type: "Eltwise"}
+layer { name: "post_res3" type: "Convolution" bottom: "res3" top: "post_res3"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 128 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+### PROD
+#######
+layer { name: "conv3_3_down" type: "Convolution" bottom: "conv3_3" top: "conv3_3_down"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 128 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "conv3_3_down_v" type: "Convolution" bottom: "conv3_3_down" top: "conv3_3_down_v"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 128 pad: 1 kernel_size: 3
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "sig_conv3_3_down_v"  bottom: "conv3_3_down_v"  top: "conv3_3_down_v"  type: "Sigmoid"}
+layer { name: "prod3" type: "Eltwise" bottom: "conv3_3_down_v" bottom: "post_res3"
+  top: "prod3" eltwise_param { operation: PROD } }
+### G
+layer { name: "conv3_side1" type: "Convolution" bottom: "post_res3" top: "conv3_side1"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 128 pad: 1 kernel_size: 3
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "relu_conv3_side1" type: "ReLU" bottom: "conv3_side1" top: "conv3_side1" }
+layer { name: "conv3_side2" type: "Convolution" bottom: "conv3_side1" top: "conv3_side2"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 128 pad: 1 kernel_size: 3
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "relu_conv3_side2" type: "ReLU" bottom: "conv3_side2" top: "conv3_side2" }
+layer { name: "res3_down_g" type: "Convolution" bottom: "post_res3" top: "res3_down_g"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 128 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "res_side3" bottom: "res3_down_g" bottom: "conv3_side2" top: "res_side3" type: "Eltwise"}
+layer { name: "conv3_side3" type: "Convolution" bottom: "res_side3" top: "conv3_side3"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 1 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "upsample4" type: "Deconvolution" bottom: "conv3_side3" top: "conv3_side3-up"
+  param { lr_mult: 0 decay_mult: 1 } param { lr_mult: 0 decay_mult: 0 }
+  convolution_param { num_output: 1 kernel_size: 8 stride: 4
+    weight_filler { type: "bilinear" } } }
+layer { name: "crop3_g" type: "Crop" bottom: "conv3_side3-up" bottom: "data"
+  top: "upscore-dsn3" crop_param { axis: 2 offset: 2 } }
+layer { name: "sigmoid-dsn3" type: "Sigmoid" bottom: "upscore-dsn3" top: "sigmoid-dsn3" }
+
+### deconv2 ###
+### after PROD
+layer { name: "post_deconv3" type: "Convolution" bottom: "prod3" top: "post_deconv3"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 128 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "upsample2_2" type: "Deconvolution" bottom: "post_deconv3" top: "reshape2"
+  param { lr_mult: 0 decay_mult: 1 } param { lr_mult: 0 decay_mult: 0 }
+  convolution_param { num_output: 128 group: 128 kernel_size: 4 stride: 2
+    weight_filler { type: "bilinear" } } }
+layer { name: "crop2" type: "Crop" bottom: "reshape2" bottom: "conv2_2"
+  top: "crop2" crop_param { axis: 2 offset: 1 } }
+### concat
+layer { name: "crop2_down" type: "Convolution" bottom: "crop2" top: "crop2_down"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 128 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "conv2_down" type: "Convolution" bottom: "conv2_2" top: "conv2_down"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 128 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "concat_deconv2" bottom: "crop2_down" bottom: "conv2_down" top: "concat_deconv2" type: "Concat" concat_param { concat_dim: 1 } }
+### res
+layer { name: "deconv2" type: "Convolution" bottom: "concat_deconv2" top: "deconv2"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 128 pad: 1 kernel_size: 3
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "derelu2" type: "ReLU" bottom: "deconv2" top: "deconv2" }
+layer { name: "deconv2_out" type: "Convolution" bottom: "deconv2" top: "deconv2_out"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 128 pad: 1 kernel_size: 3
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "derelu2_out" type: "ReLU" bottom: "deconv2_out" top: "deconv2_out" }
+layer { name: "concat_deconv2_down" type: "Convolution" bottom: "concat_deconv2" top: "concat_deconv2_down"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 128 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { bottom: "concat_deconv2_down" bottom: "deconv2_out" top: "res2" name: "res2" type: "Eltwise"}
+layer { name: "post_res2" type: "Convolution" bottom: "res2" top: "post_res2"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 128 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+######
+### PROD
+layer { name: "conv2_2_down" type: "Convolution" bottom: "conv2_2" top: "conv2_2_down"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 128 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "conv2_2_down_v" type: "Convolution" bottom: "conv2_2_down" top: "conv2_2_down_v"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 128 pad: 1 kernel_size: 3
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "sig_conv2_2_down_v"  bottom: "conv2_2_down_v"  top: "conv2_2_down_v"  type: "Sigmoid"}
+layer { name: "prod2" type: "Eltwise" bottom: "conv2_2_down_v" bottom: "post_res2"
+  top: "prod2" eltwise_param { operation: PROD } }
+### G
+layer { name: "conv2_side1" type: "Convolution" bottom: "post_res2" top: "conv2_side1"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 128 pad: 1 kernel_size: 3
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "relu_conv2_side1" type: "ReLU" bottom: "conv2_side1" top: "conv2_side1" }
+layer { name: "conv2_side2" type: "Convolution" bottom: "conv2_side1" top: "conv2_side2"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 128 pad: 1 kernel_size: 3
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "relu_conv2_side2" type: "ReLU" bottom: "conv2_side2" top: "conv2_side2" }
+layer { name: "res2_down_g" type: "Convolution" bottom: "post_res2" top: "res2_down_g"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 128 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "res_side2" bottom: "res2_down_g" bottom: "conv2_side2" top: "res_side2" type: "Eltwise"}
+layer { name: "conv2_side3" type: "Convolution" bottom: "res_side2" top: "conv2_side3"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 1 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "upsample2" type: "Deconvolution" bottom: "conv2_side3" top: "conv2_side3-up"
+  param { lr_mult: 0 decay_mult: 1 } param { lr_mult: 0 decay_mult: 0 }
+  convolution_param { num_output: 1 kernel_size: 4 stride: 2
+    weight_filler { type: "bilinear" } } }
+layer { name: "crop2_g" type: "Crop" bottom: "conv2_side3-up" bottom: "data"
+  top: "upscore-dsn2" crop_param { axis: 2 offset: 1 } }
+layer { name: "sigmoid-dsn2" type: "Sigmoid" bottom: "upscore-dsn2" top: "sigmoid-dsn2" }
+
+### deconv1 ###
+### after PROD
+layer { name: "post_deconv2" type: "Convolution" bottom: "prod2" top: "post_deconv2"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 64 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "upsample2_1" type: "Deconvolution" bottom: "post_deconv2" top: "reshape1"
+  param { lr_mult: 0 decay_mult: 1 } param { lr_mult: 0 decay_mult: 0 }
+  convolution_param { num_output: 64 group: 64 kernel_size: 4 stride: 2
+    weight_filler { type: "bilinear" } } }
+layer { name: "crop1" type: "Crop" bottom: "reshape1" bottom: "conv1_2"
+  top: "crop1" crop_param { axis: 2 offset: 1 } }
+### concat
+layer { name: "crop1_down" type: "Convolution" bottom: "crop1" top: "crop1_down"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 64 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "conv1_down" type: "Convolution" bottom: "conv1_2" top: "conv1_down"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 64 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "concat_deconv1" bottom: "crop1_down" bottom: "conv1_down" top: "concat_deconv1" type: "Concat" concat_param { concat_dim: 1 } }
+### res
+layer { name: "deconv1" type: "Convolution" bottom: "concat_deconv1" top: "deconv1"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 64 pad: 1 kernel_size: 3
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "derelu1" type: "ReLU" bottom: "deconv1" top: "deconv1" }
+layer { name: "deconv1_out" type: "Convolution" bottom: "deconv1" top: "deconv1_out"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 64 pad: 1 kernel_size: 3
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "derelu1_out" type: "ReLU" bottom: "deconv1_out" top: "deconv1_out" }
+layer { name: "concat_deconv1_down" type: "Convolution" bottom: "concat_deconv1" top: "concat_deconv1_down"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 64 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { bottom: "concat_deconv1_down" bottom: "deconv1_out" top: "res1" name: "res1" type: "Eltwise"}
+layer { name: "post_res1" type: "Convolution" bottom: "res1" top: "post_res1"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 64 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+### G
+layer { name: "conv1_side1" type: "Convolution" bottom: "post_res1" top: "conv1_side1"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 64 pad: 1 kernel_size: 3
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "relu_conv1_side1" type: "ReLU" bottom: "conv1_side1" top: "conv1_side1" }
+layer { name: "conv1_side2" type: "Convolution" bottom: "conv1_side1" top: "conv1_side2"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 64 pad: 1 kernel_size: 3
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "relu_conv1_side2" type: "ReLU" bottom: "conv1_side2" top: "conv1_side2" }
+layer { name: "res1_down_g" type: "Convolution" bottom: "post_res1" top: "res1_down_g"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 64 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "res_side1" bottom: "res1_down_g" bottom: "conv1_side2" top: "res_side1" type: "Eltwise"}
+layer { name: "conv1_side3" type: "Convolution" bottom: "res_side1" top: "upscore-dsn1"
+  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }
+  convolution_param { num_output: 1 pad: 0 kernel_size: 1
+    weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "sigmoid-dsn1" type: "Sigmoid" bottom: "upscore-dsn1" top: "sigmoid-dsn1" }
+
+### Concat and multiscale weight layer ###
+layer { name: "concat" bottom: "upscore-dsn1"  bottom: "upscore-dsn2" bottom: "upscore-dsn3" bottom: "upscore-dsn4"
+  bottom: "upscore-dsn5" bottom: "upscore-dsn6" top: "concat-upscore" type: "Concat" concat_param { concat_dim: 1 } }
+layer { name: "fusion_conv3" type: "Convolution" bottom: "concat-upscore" top: "upscore-fuse"
+  param { lr_mult: 0.1 decay_mult: 1 } param { lr_mult: 0.2 decay_mult: 0 }
+  convolution_param { num_output: 1 pad: 0 kernel_size: 1
+  weight_filler { type: "gaussian" std: 0.01 } bias_filler { type: "constant" value: 0 } } }
+layer { name: "sigmoid-fuse" type: "Sigmoid" bottom: "upscore-fuse" top: "sigmoid-fuse" }

@@ -1,0 +1,16 @@
+train_net: "train_vgg16.prototxt"
+# lr for fine-tuning should be lower than when starting from scratch
+# debug_info: true
+base_lr: 2.5e-8
+lr_policy: "poly"
+power: 0.9
+iter_size: 10
+average_loss: 50
+display: 20
+max_iter: 20000
+momentum: 0.90
+weight_decay: 0.0005
+snapshot: 5000
+snapshot_prefix: "snapshots/atdf_sal_vgg16"
+# uncomment the following to default to CPU mode solving
+# solver_mode: CPU

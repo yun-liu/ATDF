@@ -21,7 +21,7 @@ It is widely accepted that the top sides of convolutional neural networks (CNNs)
     DUTS-TR/ILSVRC2012_test_00000018.jpg DUTS-TR/ILSVRC2012_test_00000018.png
     DUTS-TR/ILSVRC2012_test_00000019.jpg DUTS-TR/ILSVRC2012_test_00000019.png
     ```
-   Here, $ROOT_DIR/saliency_data/*.jpg is the path of training images, and $ROOT_DIR/saliency_data/*.png is the path of the saliency ground truth. Maybe you need to change the path to your own data.
+   Here, `$ROOT_DIR/saliency_data/*.jpg` is the path of training images, and `$ROOT_DIR/saliency_data/*.png` is the path of the saliency ground truth. Maybe you need to change the path to your own data.
 
 
 4. Download the pretrained vgg16 model from [here](http://mftp.mmcheng.net/liuyun/rcf/model/5stage-vgg.caffemodel).

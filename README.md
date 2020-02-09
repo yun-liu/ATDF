@@ -1,9 +1,28 @@
-# ATDF
-A Simple Saliency Detection Approach via Automatic Top-Down Feature Fusion (Submitted to Neurocomputing)
+## [A Simple Saliency Detection Approach via Automatic Top-Down Feature Fusion](https://www.sciencedirect.com/science/article/abs/pii/S0925231220300709) 
 
 ### Introduction
 
 It is widely accepted that the top sides of convolutional neural networks (CNNs) convey high-level semantic features, and the bottom sides contai low-level details. Therefore, most of recent salient object detection methods aim at designing effective fusion strategies for side-output features. Although significant progress has been achieved in this direction, the network architectures become more and more complex, which will make the future improvement difficult and heavily engineered. Moreover, the manually designed fusion strategies would be sub-optimal due to the large search space of possible solutions. To address above problems, we propose an Automatic Top-Down Fusion (ATDF) method, in which the global information at the top sides are flowed into bottom sides to guide the learning of low layers. We design a novel valve module and add it at each side to control the coarse semantic information flowed into a specific bottom side. Through these valve modules, each bottom side at the top-down pathway is expected to receive necessary top information. We also design a generator to improve the prediction capability of fused deep features for saliency detection. We perform extensive experiments to demonstrate that ATDF is simple yet effective and thus opens a new path for saliency detection.
+
+### Citations
+
+If you are using the code/model/data provided here in a publication, please consider citing our paper:
+
+    @article{qiu2020simple,
+      title={A Simple Saliency Detection Approach via Automatic Top-Down Feature Fusion},
+      author={Qiu, Yu and Liu, Yun and Yang, Hui and Xu, Jing},
+      journal={Neurocomputing},
+      year={2020},
+      publisher={Elsevier}
+    }
+    
+    @inproceedings{qiu2019revisiting,
+      title={Revisiting Multi-Level Feature Fusion: A Simple Yet Effective Network for Salient Object Detection},
+      author={Qiu, Yu and Liu, Yun and Ma, Xiaoxu and Liu, Lei and Gao, Hongcan and Xu, Jing},
+      booktitle={IEEE International Conference on Image Processing},
+      pages={4010--4014},
+      year={2019}
+    }
 
 ### Training RCF
 

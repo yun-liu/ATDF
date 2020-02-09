@@ -23,6 +23,10 @@ If you are using the code/model/data provided here in a publication, please cons
       pages={4010--4014},
       year={2019}
     }
+    
+### Pre-computed saliency maps
+
+The pre-computed saliency maps for six datasets, including DUT-OMRON, DUTS, ECSSD, HKU-IS, SOD, and THUR15K, can be found in the folder of `SaliencyMaps`.
 
 ### Training RCF
 

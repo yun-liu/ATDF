@@ -1,4 +1,4 @@
-## [A Simple Saliency Detection Approach via Automatic Top-Down Feature Fusion](https://www.sciencedirect.com/science/article/abs/pii/S0925231220300709) 
+## [A Simple Saliency Detection Approach via Automatic Top-Down Feature Fusion](https://www.sciencedirect.com/science/article/pii/S0925231220300709) 
 
 ### Introduction
 
@@ -12,6 +12,8 @@ If you are using the code/model/data provided here in a publication, please cons
       title={A Simple Saliency Detection Approach via Automatic Top-Down Feature Fusion},
       author={Qiu, Yu and Liu, Yun and Yang, Hui and Xu, Jing},
       journal={Neurocomputing},
+      volume={388},
+      pages={124--134},
       year={2020},
       publisher={Elsevier}
     }

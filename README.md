@@ -6,7 +6,7 @@ It is widely accepted that the top sides of convolutional neural networks (CNNs)
 
 ### Citations
 
-If you are using the code/model/data provided here in a publication, please consider citing our papers:
+If you are using the code/model/data provided here in a publication, please consider citing:
 
     @article{qiu2020simple,
       title={A Simple Saliency Detection Approach via Automatic Top-Down Feature Fusion},
